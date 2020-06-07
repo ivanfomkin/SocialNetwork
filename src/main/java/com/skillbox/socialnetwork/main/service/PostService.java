@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface PostService {
 
-    List<PostDto> findPost(String text, long dateFrom, long dateTo, int offset, int itemPerPage);
+    List<PostDto> findPosts(String text, long dateFrom, long dateTo, int offset, int itemPerPage);
 
-    Post findById(Integer id);
+    PostDto findById(Integer id);
 
     Post save(Post post);
 }

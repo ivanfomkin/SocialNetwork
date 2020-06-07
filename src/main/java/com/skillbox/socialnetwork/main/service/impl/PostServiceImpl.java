@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
@@ -29,7 +30,8 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public List<PostDto> findPost(String text, long dateFrom, long dateTo, int offset, int itemPerPage) {
+    @Transactional(readOnly = true)
+    public List<PostDto> findPosts(String text, long dateFrom, long dateTo, int offset, int itemPerPage) {
 
         int limit = itemPerPage < 1 ? 10 : itemPerPage;
         PageRequest pageRequest = PageRequest.of(offset / itemPerPage, limit);
@@ -37,7 +39,7 @@ public class PostServiceImpl implements PostService {
         LocalDate dateF = dateConvert.longToDate(dateFrom);
         LocalDate dateT = dateConvert.longToDate(dateTo);
 
-        Page<Post> allPosts = repository.findAllPost(text, dateF, dateT, pageRequest);
+        Page<Post> allPosts = repository.findAllPosts(text, dateF, dateT, pageRequest);
 
         if (allPosts.isEmpty()) {
             throw new EntityNotFoundException("Not Found");
@@ -52,8 +54,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findById(Integer id) {
-        return repository.findPostById(id);
+    @Transactional(readOnly = true)
+    public PostDto findById(Integer id) {
+
+        Post post = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found!"));
+
+        return PostDto.postToDo(post);
     }
 
     @Override

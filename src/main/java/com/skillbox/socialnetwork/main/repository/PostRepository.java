@@ -12,7 +12,7 @@ import java.util.Date;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    Page<Post> findAllPost(String text, LocalDate dateFrom, LocalDate dateTo, Pageable pageable);
+    Page<Post> findAllPosts(String text, LocalDate dateFrom, LocalDate dateTo, Pageable pageable);
 
     Post findPostById(Integer id);
 }
