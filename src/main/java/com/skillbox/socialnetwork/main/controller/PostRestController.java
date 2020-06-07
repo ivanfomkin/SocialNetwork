@@ -3,6 +3,7 @@ package com.skillbox.socialnetwork.main.controller;
 import com.skillbox.socialnetwork.main.dto.post.response.PostDto;
 import com.skillbox.socialnetwork.main.dto.post.response.PostListDto;
 import com.skillbox.socialnetwork.main.dto.universal.BaseResponseDto;
+import com.skillbox.socialnetwork.main.model.Post;
 import com.skillbox.socialnetwork.main.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,9 +48,24 @@ public class PostRestController {
     public BaseResponseDto findPostById(
             @PathVariable int id
     ){
-        return new BaseResponseDto("Post founded", baseResponseDto.getTimestamp(), postService.findById(id));
+        return new BaseResponseDto(
+                "Post founded",
+                baseResponseDto.getTimestamp(),
+                postService.findById(id));
     }
 
+    //@ToDo Требуется проверка ( не проверялся )
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponseDto editingPublication(@PathVariable int id,
+                                               @RequestParam(value = "publish_date", required = false) Long  publishDate,
+                                               @RequestBody Post post) {
+
+        return new BaseResponseDto(
+                "Successful editing of the publication.",
+                baseResponseDto.getTimestamp(),
+                postService.editPost(id, publishDate, post));
+    }
 
 }
 

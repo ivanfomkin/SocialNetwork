@@ -11,5 +11,7 @@ public interface PostService {
 
     PostDto findById(Integer id);
 
+    PostDto editPost(int id, long publishDate, Post post);
+
     Post save(Post post);
 }

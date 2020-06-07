@@ -63,6 +63,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostDto editPost(int id, long publishDate, Post post) {
+
+        Post postBefore = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Not found"));
+
+        post.setId(postBefore.getId());
+        post.setAuthor(postBefore.getAuthor());
+        post.setTime(dateConvert.longToDate(publishDate));
+
+        repository.save(post);
+
+        return PostDto.postToDo(post);
+    }
+
+    @Override
     public Post save(Post post) {
         return repository.save(post);
     }
