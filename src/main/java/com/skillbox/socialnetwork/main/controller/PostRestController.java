@@ -47,7 +47,7 @@ public class PostRestController {
     public BaseResponseDto findPostById(
             @PathVariable int id
     ){
-        return new BaseResponseDto("Post founded", baseResponseDto.getTimestamp(), findPostById(id));
+        return new BaseResponseDto("Post founded", baseResponseDto.getTimestamp(), postService.findById(id));
     }
 
 
