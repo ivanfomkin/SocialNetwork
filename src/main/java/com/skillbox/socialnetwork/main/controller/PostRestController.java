@@ -29,7 +29,7 @@ public class PostRestController {
             @RequestParam(required = false, defaultValue = "20") Integer itemPerPage
     ) {
 
-        List<PostDto> postResponse =  postService.getAll(text, dateFrom, dateTo, offset, itemPerPage);
+        List<PostDto> postResponse =  postService.findPost(text, dateFrom, dateTo, offset, itemPerPage);
         int total = postResponse.size();
 
         return new PostListDto("Search completed!", postResponse, total, offset, itemPerPage);

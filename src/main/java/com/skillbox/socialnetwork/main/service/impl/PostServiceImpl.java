@@ -29,7 +29,7 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public List<PostDto> getAll(String text, long dateFrom, long dateTo, int offset, int itemPerPage) {
+    public List<PostDto> findPost(String text, long dateFrom, long dateTo, int offset, int itemPerPage) {
 
         int limit = itemPerPage < 1 ? 10 : itemPerPage;
         PageRequest pageRequest = PageRequest.of(offset / itemPerPage, limit);

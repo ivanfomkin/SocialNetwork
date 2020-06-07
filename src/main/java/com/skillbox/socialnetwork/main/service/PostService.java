@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostService {
 
-    List<PostDto> getAll(String text, long dateFrom, long dateTo, int offset, int itemPerPage);
+    List<PostDto> findPost(String text, long dateFrom, long dateTo, int offset, int itemPerPage);
 
     Post findById(Integer id);
 
